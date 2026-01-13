@@ -4,7 +4,7 @@ apt update && apt upgrade
 
 # MARIADB
 echo "Installing mariadb....."
-apt install mariadb-server mariadb-client -y
+apt install -y mariadb-server mariadb-client
 echo "installing mariadb finish"
 
 # SQL 
@@ -93,4 +93,5 @@ sleep 1
 echo "THANK YOU FOR USING ALVIN'S PROUCT"
 
 rm -rf db/
+
 

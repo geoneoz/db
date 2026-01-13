@@ -3,10 +3,8 @@
 apt update
 
 # MARIADB
-echo "Installinh mariadb....."
-apt install mariadb-{server,client} -y
-rm -f /etc/mysql/mariadb.conf.d/50-server.cnf
-mv db/50-server.cnf /etc/mysql/mariadb.conf.d/
+echo "Installing mariadb....."
+apt install mariadb-server mariadb-client -y
 echo "installing mariadb finish"
 
 # SQL 
@@ -93,4 +91,5 @@ echo "1"
 echo "session terminated"
 sleep 1
 echo "THANK YOU FOR USING ALVIN'S PROUCT"
+
 rm -rf db/

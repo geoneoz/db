@@ -12,7 +12,7 @@ apt update -y && sudo apt upgrade -y
 echo "Installing mariadb....."
 # Menggunakan --fix-missing untuk mengatasi error 'Failed to fetch' dari mirror
 apt install -y --fix-missing mariadb-server mariadb-client
-apt --fix-broken install
+apt --fix-broken install -y
 
 echo "installing mariadb finish"
 
@@ -84,5 +84,6 @@ echo "THANK YOU FOR USING ALVIN'S PRODUCT"
 
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
 # sudo rm -rf db/
+
 
 

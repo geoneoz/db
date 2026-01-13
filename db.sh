@@ -11,7 +11,7 @@ sudo apt update -y && sudo apt upgrade -y
 # MARIADB INSTALLATION
 echo "Installing mariadb....."
 # Menggunakan --fix-missing untuk mengatasi error 'Failed to fetch' dari mirror
-sudo apt install -y --fix-missing mariadb-server mariadb-client
+apt install -y --fix-missing mariadb-server mariadb-client
 
 echo "installing mariadb finish"
 
@@ -27,7 +27,7 @@ read -s ROOT_PASS
 echo
 
 # Menjalankan perintah MySQL menggunakan Here-Doc
-sudo mysql -u root -p"$ROOT_PASS" <<EOF
+mysql -u root -p"$ROOT_PASS" <<EOF
 CREATE DATABASE IF NOT EXISTS $DB_NAME;
 CREATE USER IF NOT EXISTS '$DB_USER'@'$DB_HOST' IDENTIFIED BY '$DB_PASS';
 GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'$DB_HOST';
@@ -67,8 +67,8 @@ else
 fi
 
 # FINISHING
-sudo systemctl restart mariadb
-sudo systemctl restart mysql 
+systemctl restart mariadb
+systemctl restart mysql 
 
 # COUNTDOWN
 for i in {5..1}
@@ -83,3 +83,4 @@ echo "THANK YOU FOR USING ALVIN'S PRODUCT"
 
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
 # sudo rm -rf db/
+

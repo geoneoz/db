@@ -1,15 +1,21 @@
 #!/bin/bash
 
-apt update && apt upgrade
+# --- PRE-FIX: Menghapus karakter hantu Windows (\r) jika ada ---
+# Baris ini memastikan script berjalan lancar di Linux meskipun diedit di Windows
+sed -i 's/\r$//' "$0"
 
-# MARIADB
+# UPDATE & UPGRADE
+echo "Updating repositories..."
+sudo apt update -y && sudo apt upgrade -y
+
+# MARIADB INSTALLATION
 echo "Installing mariadb....."
-apt install -y mariadb-server mariadb-client
-apt update --fix-missing
+# Menggunakan --fix-missing untuk mengatasi error 'Failed to fetch' dari mirror
+sudo apt install -y --fix-missing mariadb-server mariadb-client
+
 echo "installing mariadb finish"
 
-# SQL 
-# Konfigurasi Variabel
+# SQL CONFIGURATION
 DB_NAME="moodle"
 DB_USER="moodleuser"
 DB_PASS="12345"
@@ -20,21 +26,12 @@ echo -n "Masukkan password root MySQL: "
 read -s ROOT_PASS
 echo
 
-# Menjalankan perintah MySQL
-mysql -u root -p"$ROOT_PASS" <<EOF
--- 1. Buat database moodle
+# Menjalankan perintah MySQL menggunakan Here-Doc
+sudo mysql -u root -p"$ROOT_PASS" <<EOF
 CREATE DATABASE IF NOT EXISTS $DB_NAME;
-
--- 2. Buat user dan password
 CREATE USER IF NOT EXISTS '$DB_USER'@'$DB_HOST' IDENTIFIED BY '$DB_PASS';
-
--- 3. Memberikan akses penuh ke database moodle
 GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'$DB_HOST';
-
--- 4. Flush privileges
 FLUSH PRIVILEGES;
-
--- 5. Keluar otomatis (implicit by EOF)
 EOF
 
 if [ $? -eq 0 ]; then
@@ -49,51 +46,40 @@ else
 fi
 
 # REWRITE BINDING IP
-# Path ke file konfigurasi MariaDB
 FILE_PATH="/etc/mysql/mariadb.conf.d/50-server.cnf"
 
-# 1. Mengecek apakah file tersebut ada
 if [ -f "$FILE_PATH" ]; then
     echo "Mengubah bind-address di $FILE_PATH..."
+    # Menggunakan regex yang lebih fleksibel untuk menangkap variasi spasi
+    sudo sed -i 's/^bind-address\s*=.*/bind-address = 0.0.0.0/' "$FILE_PATH"
 
-    # 2. Menggunakan sed untuk mencari baris bind-address dan menggantinya
-    # 's' artinya substitute (ganti)
-    sudo sed -i 's/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/' "$FILE_PATH"
-
-    # 3. Verifikasi apakah perubahan berhasil
     CHECK=$(grep "bind-address = 0.0.0.0" "$FILE_PATH")
     
     if [ ! -z "$CHECK" ]; then
         echo "Berhasil: bind-address telah diubah menjadi 0.0.0.0"
-        
-        # 4. Restart layanan MariaDB agar konfigurasi baru aktif
         echo "Me-restart MariaDB..."
         sudo systemctl restart mariadb
-        echo "Selesai."
     else
-        echo "Gagal: Teks tidak ditemukan atau tidak dapat diubah."
+        echo "Gagal: Baris bind-address tidak ditemukan di file."
     fi
 else
     echo "Error: File $FILE_PATH tidak ditemukan."
 fi
 
 # FINISHING
-systemctl restart mysqld
-systemctl restart mysql 
-echo "5"
-sleep 1
-echo "4"
-sleep 1
-echo "3"
-sleep 1
-echo "2"
-sleep 1
-echo "1"
+sudo systemctl restart mariadb
+sudo systemctl restart mysql 
+
+# COUNTDOWN
+for i in {5..1}
+do
+    echo "$i"
+    sleep 1
+done
+
 echo "session terminated"
 sleep 1
-echo "THANK YOU FOR USING ALVIN'S PROUCT"
+echo "THANK YOU FOR USING ALVIN'S PRODUCT"
 
-rm -rf db/
-
-
-
+# Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
+# sudo rm -rf db/

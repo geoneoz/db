@@ -78,12 +78,16 @@ do
     sleep 1
 done
 
+# IMPORT MYSQL 50-SERVER CONFIG
+rm /etc/mysql/mariadb.conf.d/50-server.cnf
+mv db/50-server.cnf /etc/mysql/mariadb.conf.d/
 echo "session terminated"
 sleep 1
 echo "THANK YOU FOR USING ALVIN'S PRODUCT"
 
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
 # sudo rm -rf db/
+
 
 
 

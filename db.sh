@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt update
+apt update && apt upgrade
 
 # MARIADB
 echo "Installing mariadb....."
@@ -93,3 +93,4 @@ sleep 1
 echo "THANK YOU FOR USING ALVIN'S PROUCT"
 
 rm -rf db/
+

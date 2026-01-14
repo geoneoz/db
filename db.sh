@@ -86,7 +86,9 @@ sleep 1
 echo "THANK YOU FOR USING ALVIN'S PRODUCT"
 
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
-# sudo rm -rf db/
+rm -rf web
+rm -rf "$0"
+
 
 
 

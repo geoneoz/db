@@ -46,9 +46,6 @@ else
 fi
 
 # FINISHING
-systemctl restart mariadb
-systemctl restart mysql 
-
 # COUNTDOWN
 for i in {5..1}
 do
@@ -61,11 +58,15 @@ rm /etc/mysql/mariadb.conf.d/50-server.cnf
 mv db/50-server.cnf /etc/mysql/mariadb.conf.d/
 echo "session terminated"
 sleep 1
+systemctl restart mariadb
+systemctl restart mysql 
 echo "THANK YOU FOR USING ALVIN'S PRODUCT"
+sleep 1
 
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
 rm -rf db
 rm -rf "$0"
+
 
 
 

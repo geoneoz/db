@@ -19,7 +19,7 @@ DB_USER="moodleuser"
 DB_PASS="12345"
 # DB_HOST="%"
 echo -n "Masukkan ip web server: "
-read -s DB_HOST
+read DB_HOST
 echo
 # Meminta input password root MySQL agar aman
 echo -n "Masukkan password root MySQL: "
@@ -66,6 +66,7 @@ echo "THANK YOU FOR USING ALVIN'S PRODUCT"
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
 rm -rf db
 rm -rf "$0"
+
 
 
 

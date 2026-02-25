@@ -59,13 +59,21 @@ mv db/50-server.cnf /etc/mysql/mariadb.conf.d/
 echo "session terminated"
 sleep 1
 systemctl restart mariadb
-systemctl restart mysql 
+systemctl restart mysql
+
+echo "setup backup file"
+mkdir /backup
+mv backup_db.sh /backup
+echo "done setup"
+
 echo "THANK YOU FOR USING ALVIN'S PRODUCT"
 sleep 1
 
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
-rm -rf db
 rm -rf "$0"
+rm -rf db
+
+
 
 
 

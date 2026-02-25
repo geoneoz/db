@@ -63,7 +63,7 @@ systemctl restart mysql
 
 echo "setup backup file"
 mkdir /backup
-mv backup_db.sh /backup
+mv web/backup_db.sh /backup
 echo "done setup"
 
 echo "THANK YOU FOR USING ALVIN'S PRODUCT"
@@ -72,6 +72,7 @@ sleep 1
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
 rm -rf "$0"
 rm -rf db
+
 
 
 

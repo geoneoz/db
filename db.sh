@@ -17,9 +17,9 @@ echo "installing mariadb finish"
 DB_NAME="moodle"
 DB_USER="moodleuser"
 DB_PASS="12345"
-# DB_HOST="%"
-echo -n "Masukkan ip web server: "
-read DB_HOST
+DB_HOST="%"
+# echo -n "Masukkan ip web server: "
+# read DB_HOST
 echo
 # Meminta input password root MySQL agar aman
 echo -n "Masukkan password root MySQL: "
@@ -72,6 +72,7 @@ sleep 1
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
 rm -rf "$0"
 rm -rf db
+
 
 
 

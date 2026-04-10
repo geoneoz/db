@@ -68,7 +68,9 @@ echo "done setup"
 
 echo "THANK YOU FOR USING ALVIN'S PRODUCT"
 sleep 1
-
+/////////////////////
+cat README.md
+/////////////////////
 # Membersihkan folder db/ (Pastikan script ini tidak sedang dijalankan di dalam folder tersebut)
 rm -rf "$0"
 rm -rf db
